@@ -1,34 +1,16 @@
 # Reinforcement Learning on Basketball
-Q Learning on a basketball shooter game.
 
-## Environment Specifics
-### Inputs(Parameters) 
-* Distance from hoop 
-* Height of hoop 
-### Outputs 
-* Shoot angle 
-* Shoot velocity 
-### Rewards 
-* Proportional to ball's nearest distance from hoop
-### Model Specifications
- * Optimization function
-    - rmsprop
- * Loss function
-    - MSE(mean squared error)
- * Activation
-    - Sigmoid on 2nd layer
- * Initialization
-    - random_uniform
-## Dependencies
- - Python3
- - Pygame
- - Tensorflow (Backend)
- - Keras
- - Numpy
- 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-Please make sure to update tests as appropriate.
+## Rough Overview (WIP) 
+Agent learns the best angle 
+and speed to shoot a basketball depending on the distance 
+from the hoop and its own height.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+The agent has two parameters:
+ - Height
+ - Distance from hoop
+
+The model takes two inputs (player height, distance from hoop) and outputs two values (speed and angle to throw the ball). 
+
+## TODO
+- Implement training 
+- Implement more variables
