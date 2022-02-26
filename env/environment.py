@@ -9,12 +9,23 @@ class environment():
     """
     def __init__(self, 
                  player_height,
-                 hoop_dist):
+                 hoop_dist, 
+                 blit=True):
         # Initialize pygame
-        pygame.init()
-        pygame.font.init()
-        self.myfont = pygame.font.Font(font_dir, 
-                                       font_size)
+        self.blit = blit
+        if self.blit:
+            pygame.init()
+            pygame.font.init()
+            self.myfont = pygame.font.Font(font_dir, 
+                                        font_size)
+            # Initialize display
+            self.disp = pygame.display.set_mode((screen_width, 
+                                                screen_height), 
+                                                0, 
+                                                32)
+        else:
+            self.disp = pygame.Surface((screen_width,
+                                        screen_height))
         
         # Initialize variables
         self.player_pos = (hoop_pole_pos[0]-hoop_dist, 
@@ -22,11 +33,6 @@ class environment():
         self.player_height = player_height
         self.ball_pos = [self.player_pos[0]+player_width, 
                          self.player_pos[1]-ball_radius*2]
-        # Initialize display
-        self.disp = pygame.display.set_mode((screen_width, 
-                                             screen_height), 
-                                            0, 
-                                            32)
 
     @staticmethod
     def calculate_score(score,
@@ -68,7 +74,6 @@ class environment():
         if self.ball_rect.colliderect(self.hoop_rect):
             if self.hoop_rect.top > self.ball_rect.top and self.hoop_rect.left <= self.ball_rect.left + ball_radius <= self.hoop_pole_rect.right:
                 score = True; end = True
-                print("Scored!")
                 ball_v[0] = 0
             elif self.hoop_rect.left <= self.ball_rect.right:
                 ball_v[0] = -ball_v[0]
@@ -78,8 +83,7 @@ class environment():
         return ball_v, score, end
 
     def draw(self, 
-             ticks, 
-             blit=True):
+             ticks):
         """
         Draws the environment. Blitting updates the display.
         INPUTS:     Int for time, Boolean for blit
@@ -87,6 +91,7 @@ class environment():
         """
         # Fill screen with default color
         self.disp.fill(screen_color)
+            
         # Draw hoop, ground and player
         self.hoop_rect =        pygame.draw.rect(self.disp, 
                                                  hoop_color, 
@@ -138,18 +143,18 @@ class environment():
                                             [int(self.ball_pos[0]), 
                                              int(self.ball_pos[1])], 
                                             ball_radius)
-        # Draw text
-        textsurface = self.myfont.render(str(ticks), 
-                                         False, 
-                                         [0, 
-                                          0, 
-                                          0])
-        self.disp.blit(textsurface,
-                       [ground_thickness, 
-                        ground_thickness])
+
+        if self.blit:
+            # Draw text
+            textsurface = self.myfont.render(str(ticks), 
+                                            False, 
+                                            [0, 
+                                            0, 
+                                            0])
+            self.disp.blit(textsurface,
+                        [ground_thickness, 
+                            ground_thickness])
         
-        # Update screen if blit = True
-        if blit == True:
             pygame.display.update()
 
     def throw(self, 

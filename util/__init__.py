@@ -2,10 +2,10 @@
 """Constants used in the environment."""
 #? 100 pixels = 1 meter
 
-#? Training parameters
-batch_size = 1
-episodes = 100000
-data_loop = 3
+#? Training parameters (These are set arbitrarily)
+batch_size = 100
+episodes = 100
+train_epochs = 10
 
 #? Colors
 white = (255, 255, 255)
@@ -28,7 +28,7 @@ font_size = 32
 font_dir = "misc/Raleway-Black.ttf"
 
 #? Game parameters
-max_ticks = 500
+max_ticks = 100
 max_score = 100
 speed_scale = 50
 angle_scale = 90
